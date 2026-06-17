@@ -22,7 +22,7 @@ export default function AboutePage() {
         <p className='text-[14px] my-4'>contact info :</p>
         <ul className='text-[14px] flex flex-col gap-1'>
           <li className='flex items-center gap-1'>- <AiFillMail /> email : <a className='text-[var(--colorHover)]' href="mailto:reza331wn@gmail.com">reza331wn@gmail.com</a></li>
-          <li className='flex items-center gap-1'>- <AiFillGithub /> github : <a className='text-[var(--colorHover)]' href="https://github.com/Winchester-cell">Github profile</a></li>
+          <li className='flex items-center gap-1'>- <AiFillGithub /> github : <a className='text-[var(--colorHover)]' href="https://github.com/reza331">Github profile</a></li>
           <li className='flex items-center gap-1'>- <FaTelegramPlane /> telegram : <a className='text-[var(--colorHover)]' href="https://t.me/reza_re_frontDev">@reza_re_frontDev</a></li>
         </ul>
       </div>

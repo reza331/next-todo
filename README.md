@@ -7,7 +7,7 @@
 
 ## Demo
 
-Live demo: [ https://full-stack-todo-app-eta.vercel.app/ ]
+Live demo: [ https://next-todo-mc38.onrender.com ]
 
 ---
 
