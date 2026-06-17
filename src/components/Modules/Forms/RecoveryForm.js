@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import LogoComponent from '../Logo/Logo'
 import { useForm } from 'react-hook-form'
@@ -6,9 +7,11 @@ import SubmitInput from '../Inputs/SubmitInput'
 import sendRecoveryCode from '@/api/auth/sendRecoveryCode'
 import { useToast } from '@/context/ToastContext'
 import { IoIosArrowBack } from "react-icons/io";
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 
-export default function RecoveryForm({ setForm, setRecoveryEmail }) {
+export default function RecoveryForm() {
 
     const { register, handleSubmit } = useForm()
     const { showToast } = useToast()
@@ -20,9 +23,8 @@ export default function RecoveryForm({ setForm, setRecoveryEmail }) {
         const sendInfo = await sendRecoveryCode(data.email)
         if (sendInfo.isOk) {
             setIsLoading(false)
-            setForm('updatepassword')
-            setRecoveryEmail(data.email)
             showToast(sendInfo.result)
+            redirect(`/recovery-password/${data.email}`)
         } else {
             setIsLoading(false)
             showToast(sendInfo.result, 'error')
@@ -42,10 +44,10 @@ export default function RecoveryForm({ setForm, setRecoveryEmail }) {
                 <SubmitInput isLoading={isLoading} buttonText={'Recover Password'} />
             </div>
 
-            <button onClick={() => setForm('login')} className='flex items-center gap-2'>
+            <Link href={'login'} className='flex items-center gap-2'>
                 <IoIosArrowBack />
                 Back
-            </button>
+            </Link>
 
         </form>
     )

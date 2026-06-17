@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
-export default function LoginForm({ setForm }) {
+export default function LoginForm() {
 
     const { register, handleSubmit } = useForm()
     const { showToast } = useToast()
@@ -41,7 +41,6 @@ export default function LoginForm({ setForm }) {
 
     }
 
-
     return (
         <form onSubmit={handleSubmit(loginHandler)} className='bg-[var(--colorB)] w-[300px] lg:w-[450px] lg:h-[550px] shadow-lg rounded-xl flex flex-col justify-center items-center gap-7 py-10'>
 
@@ -57,7 +56,7 @@ export default function LoginForm({ setForm }) {
 
             <ul className='text-sm w-full pl-16 flex flex-col gap-3 mt-3 list-disc'>
                 <li className='hoverLink'>
-                    <button onClick={() => setForm('recovery')}>Forgot my password</button>
+                    <Link href={'/recovery-password'}>Forgot my password</Link>
                 </li>
                 <li>
                     Not a member ? <Link href={'/register'} className='text-[var(--colorHover)]'>Register</Link>

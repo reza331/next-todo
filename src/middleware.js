@@ -9,6 +9,7 @@ export async function middleware(request) {
   const publicPaths = [
     '/login',
     '/register',
+    '/recovery-password',
     '/api/auth/login',
     '/api/auth/register',
     '/api/auth/recovery',
@@ -23,6 +24,9 @@ export async function middleware(request) {
     '/favicon.ico',
   ];
 
+  if (pathname === '/') {
+    return NextResponse.next();
+  }
 
   if (
     ignoredPaths.some((path) => pathname.startsWith(path)) ||

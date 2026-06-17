@@ -8,8 +8,10 @@ import { useToast } from '@/context/ToastContext'
 import updatePassword from '@/api/auth/updatePassword'
 import { MdModeEdit } from "react-icons/md";
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-export default function UpdatePasswordForm({ recoveryEmail, setForm , setIsOpen }) {
+export default function UpdatePasswordForm({ recoveryEmail, setIsOpen }) {
 
     const { register, handleSubmit, reset } = useForm()
     const { showToast } = useToast()
@@ -22,8 +24,9 @@ export default function UpdatePasswordForm({ recoveryEmail, setForm , setIsOpen 
         const updateInfo = await updatePassword(recoveryEmail, data.password, data.code)
         if (updateInfo.isOk) {
             setIsLoading(false)
-            setIsOpen ? setIsOpen(false) : setForm('login')
+            localStorage.removeItem('passwordRecoveryUI');
             showToast(updateInfo.result)
+            setIsOpen ? setIsOpen(false) : redirect('/login')
             reset()
         } else {
             setIsLoading(false)
@@ -49,11 +52,11 @@ export default function UpdatePasswordForm({ recoveryEmail, setForm , setIsOpen 
                 <SubmitInput isLoading={isLoading} buttonText={'Update Password'} />
             </div>
             {
-                pathname === '/login' &&
-                <button onClick={() => setForm('recovery')} className='flex items-center gap-2'>
+                pathname.startsWith('/recovery-password') &&
+                <Link href={'/recovery-password'} className='flex items-center gap-2'>
                     <MdModeEdit />
                     Edit Email
-                </button>
+                </Link>
             }
 
         </form>

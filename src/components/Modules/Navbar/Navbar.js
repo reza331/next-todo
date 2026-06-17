@@ -28,7 +28,7 @@ export default function Navbar() {
 
   // no need to render navbar in login or register page 
 
-  if (path === '/login' || path === '/register') {
+  if (path === '/login' || path === '/register' || path.startsWith('/recovery-password')) {
     return null
   }
 

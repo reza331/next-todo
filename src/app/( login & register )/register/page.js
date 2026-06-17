@@ -49,6 +49,7 @@ export default function RegisterPage() {
         const mounthandler = async () => {
             setTodos([])
             await logout()
+            localStorage.removeItem('passwordRecoveryUI');
         }
         mounthandler()
     }, [])

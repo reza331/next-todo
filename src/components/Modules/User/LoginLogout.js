@@ -12,6 +12,7 @@ export default function LoginLogout({ width, height }) {
     const logOutHandler = async () => {
         const res = await logout()
         if (res.isOk) {
+            localStorage.removeItem('passwordRecoveryUI');
             redirect('/login')
         }
     }

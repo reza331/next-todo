@@ -1,6 +1,6 @@
 'use client'
 import { useAuthStore } from '@/store/useAuthStore'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import UploadAvatar from './UploadAvatar';
 import CropImageModal from '@/components/Modules/Modals/CropModal';
@@ -21,6 +21,7 @@ export default function ProfileSettings() {
   const [isOpen, setIsOpen] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [updatePassowrdOpen, setUpdatePasswordOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const queryClient = useQueryClient();
 
   const removeAvatarHandler = async () => {
@@ -38,14 +39,48 @@ export default function ProfileSettings() {
   }
 
   const updatePasswordHandler = async () => {
+
+    if (isLoading) return
+
+    setIsLoading(true)
     const res = await sendRecoveryCode(user.email)
     if (res.isOk) {
       showToast(res.result)
+
+      localStorage.setItem('passwordRecoveryUI', JSON.stringify({
+        email: user.email,
+        open: true,
+        createdAt: Date.now()
+      }));
+
       setUpdatePasswordOpen(true)
     } else {
       showToast(res.result, 'error')
     }
+
+    setIsLoading(false)
+    
   }
+
+  useEffect(() => {
+    const data = localStorage.getItem('passwordRecoveryUI');
+
+    if (!data) return;
+
+    const parsed = JSON.parse(data);
+
+    const isExpired = Date.now() - parsed.createdAt > 3 * 60 * 1000;
+
+    if (isExpired) {
+      localStorage.removeItem('passwordRecoveryUI');
+      return;
+    }
+
+    if (parsed.email === user?.email) {
+      setUpdatePasswordOpen(true);
+    }
+
+  }, [user]);
 
   return (
     <>
