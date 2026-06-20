@@ -7,7 +7,9 @@
 
 ## Demo
 
-Live demo: [ https://next-todo-mc38.onrender.com ]
+Live demo: 
+* [ https://next-todo-mc38.onrender.com ]
+* [ https://next-todo-winapp.netlify.app ]
 
 ---
 
